@@ -18,3 +18,9 @@ client.on('error',function(error){
 client.on('close',function(){
     console.log('Connection closed!');
 });
+
+
+function test(){
+    var c='haha';
+    var a=1; var b=2;
+}
