@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <script src="public/libs/heatmap.js"></script>
+    <style>
+
+        .tooltip {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.247);
+            color: white;
+            font-size: 14px;
+            padding: 5px;
+            line-height: 18px;
+            display: none;
+        }
+
+        .demo-wrapper {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-wrapper" style="width:100%; height:100%;">
+        <div class="heatmap" style="width:100%; height:100%;">
+
+        </div>
+        <div class="tooltip"></div>
+    </div>
+    <script>
+        window.onload = function () {
+
+            function generateRandomData(len) {
+                // generate some random data
+                var points = [];
+                var max = 0;
+                var min = 1234;
+                var width = 840;
+                var height = 400;
+                while (len--) {
+                    var val = Math.floor(Math.random() * 1234);
+                    max = Math.max(max, val);
+                    min = Math.min(min, val);
+                    var point = {
+                        x: Math.floor(Math.random() * width),
+                        y: Math.floor(Math.random() * height),
+                        value: val
+                    };
+                    points.push(point);
+                }
+                var data = { max: max, min: min, data: points };
+                return data;
+            };
+
+            var heatmapInstance = h337.create({
+                container: document.querySelector('.heatmap')
+            });
+
+            // generate 200 random datapoints
+            var data = generateRandomData(200);
+            heatmapInstance.setData(data);
+
+            var demoWrapper = document.querySelector('.demo-wrapper');
+            var tooltip = document.querySelector('.tooltip');
+
+            function updateTooltip(x, y, value) {
+                // + 15 for distance to cursor
+                var transform = 'translate(' + (x + 15) + 'px, ' + (y + 15) + 'px)';
+                tooltip.style.MozTransform = transform; /* Firefox */
+                tooltip.style.msTransform = transform; /* IE (9+) - note ms is lowercase */
+                tooltip.style.OTransform = transform; /* Opera */
+                tooltip.style.WebkitTransform = transform; /* Safari and Chrome */
+                tooltip.style.transform = transform; /* One day, my pretty */
+
+                var current = value;
+                var percent = (value / 123400 * 100).toFixed(2);
+                tooltip.innerHTML = "<table style=\"\"><tr><td>点击量&nbsp;</td><td>页面总点击量占比</td></tr><tr><td>" + current + "&nbsp;</td><td>" + percent + "%</td></tr></table>";
+            }
+
+            demoWrapper.onmousemove = function (ev) {
+                var x = ev.layerX;
+                var y = ev.layerY;
+                var value = heatmapInstance.getValueAt({
+                    x: x,
+                    y: y
+                });
+
+                tooltip.style.display = 'block';
+                updateTooltip(x, y, value);
+            };
+            demoWrapper.onmouseout = function () {
+                tooltip.style.display = 'none';
+            };
+        }
+    </script>
+</body>
+
+</html>
