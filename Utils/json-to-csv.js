@@ -2,15 +2,14 @@
  * @Author: zhonghui.liao 
  * @Date: 2020-10-14 11:29:31 
  * @Last Modified by: zhonghui.liao
- * @Last Modified time: 2020-10-14 14:30:18
+ * @Last Modified time: 2020-10-14 16:01:26
  */
 const _ = require('underscore');
-const { fstat } = require('fs');
 
 /**
  * 测试程序
  */
-function TestToCsv() {
+function TestToCsvWin() {
     const express = require('express');
     const router = express.Router();
     const json2csv = require('json2csv');
@@ -56,4 +55,28 @@ function TestToCsv() {
             .pipe(writeStream)
     })
 }
-TestToCsv();
+TestToCsvWin();
+
+function TestJsonToCsvReject() {
+    const express = require('express');
+    var router = express.Router();
+
+    router.get('/exportCsv', async (req, res, next) => {
+        // TODO: 修改为,拼接方法
+        res.attachment(filename);
+        res.send(data);
+    });
+    
+    /**
+     * super test
+     */
+    var request = require('supertest');
+    var expressApp = require('./Express/App');
+    var fs = require('fs');
+    var writeStream = fs.createWriteStream('./demo.csv', 'w');
+    expressApp.InitApp(router, async (app) => {
+        request(app)
+          .get('/exportCsv')
+          .pipe(writeStream);
+    })
+}
