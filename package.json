@@ -20,6 +20,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "json2csv": "^5.0.3",
+    "lodash": "^4.17.20",
     "moment": "^2.29.0",
     "mongoose": "^5.10.9",
     "node-fetch": "^2.6.1",
