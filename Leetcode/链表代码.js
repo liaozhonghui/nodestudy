@@ -5,8 +5,8 @@ function ListNode(val) {
 }
  */
 
+// 判断是否是回文链表
 function isPalindrome(head) {
-    // 判断是否是回文链表
     if (!head || !head.next) return true;
 
     var prev = null;
@@ -31,8 +31,8 @@ function isPalindrome(head) {
     return true;
 }
 
+// 合并两个有序链表
 function mergeTwoList(l1, l2) {
-    // 合并两个有序链表
     var head = new ListNode(-1);
     var p = head;
     while(l1 && l2) {
@@ -48,8 +48,9 @@ function mergeTwoList(l1, l2) {
     p.next = l1 ? l1 : l2;
     return head.next;
 }
+
+// 找到链表中的中间节点
 function middleNode(head) {
-    // 找到链表中的中间节点
     if (!head || !head.next) return head;
     var slow = head;
     var quick = head;
@@ -64,8 +65,8 @@ function middleNode(head) {
     return slow;
 }
 
+// 链表反转
 function reverseList(head) {
-    // 链表反转
     if (!head) return head;
     var prev = null;
     while(head) {
@@ -77,8 +78,8 @@ function reverseList(head) {
     return prev;
 }
 
+// 删除链表的倒数第n个节点
 function removeNthFromEnd(head, n) {
-    // 删除链表的倒数第n个节点
     var count = 0;
     var dummy = new ListNode(-1);
     dummy.next = head;
@@ -93,5 +94,21 @@ function removeNthFromEnd(head, n) {
         p = p.next;
     }
     q.next = q.next.next;
+    return dummy.next;
+}
+
+// 两两交换链表中的节点
+var swapPairs = function (head) {
+    let dummy = new ListNode(-1);
+    dummy.next = head;
+    let p = dummy;
+    while (head && head.next) {
+        let node = head.next.next;
+        p.next = head.next; 
+        p.next.next = head;
+        p = p.next.next;
+        head = node;
+        p.next = head;
+    }
     return dummy.next;
 }
