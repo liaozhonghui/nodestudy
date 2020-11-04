@@ -112,3 +112,23 @@ var swapPairs = function (head) {
     }
     return dummy.next;
 }
+
+// 链表中环的检测, 返回环的起点
+function detectCycle(head) {
+    if (!head) return null;
+    let slow = head;
+    let quick = head;
+    while (quick.next && quick.next.next) {
+        quick = quick.next.next;
+        slow = slow.next;
+        if (quick === slow) {
+            let ptr = head;
+            while (ptr != slow) {
+                ptr = ptr.next;
+                slow = slow.next;
+            }
+            return ptr;
+        }
+    }
+    return null;
+}

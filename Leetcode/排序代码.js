@@ -13,7 +13,41 @@ function bubbleSort(a, n) {
         if (!flag) break;
     }
 }
-
+// 合并2个有序数组
+function merge (nums1, m, nums2, n) {
+    // 时间复杂度为O(m + n) 空间复杂度为O(m + n)
+    let copy = nums1.slice(0, m);
+    let i = 0, j = 0;
+    while (i < m && j < n) {
+        if (copy[i] <= nums2[j]) {
+            nums1[i + j] = copy[i];
+            i++;
+        } else {
+            nums1[i + j] = nums2[j];
+            j++;
+        }
+    }
+    if (i < m) {
+        for (let k = i; k < m; k++) nums1[k + j] = copy[k];
+    }
+    if (j < n) {
+        for (let k = j; k < n; k++) nums1[k + i] = nums2[j];
+    }
+}
+// 合并2个有序数组
+function merge (nums1, m, nums2, n) {
+    // 时间复杂度为O(m + n) 空间复杂度为O(1)
+    let tail = m + n - 1;
+    let i = m - 1;
+    let j = n - 1;
+    while (i && j) {
+        if (nums1[i] >= nums2[j]) nums1[tail--] = nums1[i--];
+        else nums1[tail--] = nums2[j--];
+    }
+    if (j >= 0) {
+        for (let k = j; k >= 0; k--) nums1[tail--] = nums2[k];
+    }
+}
 
 {
     var lo = require('lodash')
