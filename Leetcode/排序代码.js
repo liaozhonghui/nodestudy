@@ -57,3 +57,43 @@ function merge (nums1, m, nums2, n) {
     bubbleSort(arr, 10);
     console.log('arr:', arr);
 }
+
+// 冒泡排序
+function bubbleSort (arr) {
+    let n = arr.length;
+    if (n <= 1) return;
+    for (let i = 0; i < n; i++) {
+        let flag = false;
+        for (let j = 0; j < n - 1 - i; j++) {
+            if (a[j] > a[j + 1]) {
+                [a[j], a[j + 1]] = [a[j + 1], a[j]];
+                flag = true;
+            }
+        }
+        if (!flag) break;
+    }
+}
+// 选择排序
+// 插入排序
+function insertSort(arr) {
+    let n = arr.length;
+    if (n <= 1) return ;
+
+    for (let i = 1; i < n; i++) {
+        let val = a[i];
+        for (let j = i - 1; j >= 0;) {
+            if (a[j] > val) {
+                a[j + 1] = val;
+                j--;
+            } else break;
+        }
+        a[j + 1] = val;
+    }
+}
+// 快速排序
+function quick_sort (arr) {
+    
+}
+// 桶排序
+// 计数排序
+// 基数排序
